@@ -241,8 +241,3 @@ Day 2 went very smoothly! My main challenge was simply learning and understandin
 - Learn Docker Compose
 - Add a database container
 - Run multiple containers together
-
-
-clear
-cd clear
-delete
