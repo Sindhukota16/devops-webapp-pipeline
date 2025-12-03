@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My DevOps Journey</title>
+    <title>My DevOps Journey - Day 3</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,23 +14,24 @@
             min-height: 100vh;
         }
         h1 { font-size: 3em; margin-bottom: 20px; }
-        button {
-            padding: 15px 30px;
-            font-size: 1.2em;
-            background: white;
-            color: #667eea;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.2s;
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 600px;
         }
-        button:hover { transform: scale(1.1); }
+        .status { margin: 15px 0; font-size: 1.2em; }
     </style>
 </head>
 <body>
-    <h1>🚀 Welcome to My DevOps Journey!</h1>
-    <p>This is Day 1 of my 8-day DevOps project</p>
-    <button onclick="alert('Hello DevOps World!')">Click Me!</button>
-    <p style="margin-top: 50px;">Status: ✅ Git & GitHub Setup Complete!</p>
+    <h1>🚀 My DevOps Journey - Day 3!</h1>
+    <div class="container">
+        <h2>Multi-Container Application 🎼</h2>
+        <div class="status">✅ Web Server: Running</div>
+        <div class="status">✅ PostgreSQL Database: Connected</div>
+        <div class="status">✅ Docker Compose: Active</div>
+    </div>
+    <p style="margin-top: 50px;">Progress: Day 1 ✅ | Day 2 ✅ | Day 3 ✅</p>
 </body>
 </html>

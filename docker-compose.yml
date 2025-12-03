@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # Web Application Service
+  web:
+    build: .
+    container_name: devops-web-app
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_NAME=devops_db
+      - DB_USER=devops_user
+      - DB_PASSWORD=devops_password
+    depends_on:
+      - database
+    networks:
+      - devops-network
+
+  # Database Service
+  database:
+    image: postgres:15-alpine
+    container_name: devops-database
+    environment:
+      - POSTGRES_DB=devops_db
+      - POSTGRES_USER=devops_user
+      - POSTGRES_PASSWORD=devops_password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - devops-network
+
+# Define networks
+networks:
+  devops-network:
+    driver: bridge
+
+# Define volumes
+volumes:
+  postgres-data:
