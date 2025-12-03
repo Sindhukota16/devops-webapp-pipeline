@@ -241,3 +241,82 @@ Day 2 went very smoothly! My main challenge was simply learning and understandin
 - Learn Docker Compose
 - Add a database container
 - Run multiple containers together
+
+## Day 3 - December 03, 2025
+### Today's Goal: Multi-container applications with Docker Compose
+
+### What I Learned:
+
+#### 1. What is Docker Compose?
+- Tool for defining and running multi-container applications
+- Uses YAML files to configure services
+- Start everything with one command: docker-compose up
+- Makes managing complex applications simple
+
+#### 2. Key Concepts
+- **Services**: Each container defined in docker-compose.yml
+- **Networks**: Automatic networking between containers
+- **Volumes**: Persistent data storage
+- **Environment Variables**: Configuration without hardcoding
+- **depends_on**: Control startup order
+
+#### 3. My docker-compose.yml Structure
+- Defined 2 services: web and database
+- Web service: builds from Dockerfile, exposes port 8080
+- Database service: PostgreSQL 15, persistent storage with volumes
+- Created custom network for container communication
+- Used environment variables for database credentials
+
+#### 4. Container Networking
+- Containers on same network can communicate using service names
+- Web container connects to database using 'database' as hostname
+- Docker Compose automatically creates DNS resolution
+- Isolated from host network by default
+
+### Commands I Used:
+
+```bash
+# Start all services
+docker-compose up -d
+
+# Stop all services
+docker-compose down
+
+# View running services
+docker-compose ps
+
+# View logs
+docker-compose logs
+docker-compose logs web
+docker-compose logs -f  # Follow in real-time
+
+# Restart services
+docker-compose restart
+
+# Rebuild and start
+docker-compose up -d --build
+```
+
+### What I Built:
+- docker-compose.yml file with 2 services
+- Multi-container application (web + database)
+- Custom network for container communication
+- Persistent volume for database data
+- Updated web app showing multi-container status
+
+### Challenges I Faced:
+- Had to start Docker Desktop first 
+- Fixed BOM character in index.html
+- Learned to sync with git pull before push
+
+### Key Takeaways:
+1. Docker Compose simplifies multi-container management
+2. YAML is human-readable configuration format
+3. Services can communicate using service names as hostnames
+4. Volumes ensure data persists across container restarts
+5. Environment variables keep configuration flexible and secure
+
+### Tomorrow's Plan:
+- Set up CI/CD pipeline with GitHub Actions
+- Automate testing
+- Automate Docker image building
