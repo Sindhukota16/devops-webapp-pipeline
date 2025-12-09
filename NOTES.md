@@ -425,3 +425,111 @@ git remote -v
 
 ### Commands I Used:
 ```bash
+# Navigate to project
+cd ~/devops-projects/devops-webapp-pipeline
+
+# Edit workflow file
+nano .github/workflows/ci.yml
+
+# Check changes
+git status
+
+# Add workflow changes
+git add .github/workflows/ci.yml
+
+# Commit workflow update
+git commit -m "Add Docker Hub automation - Day 5 complete"
+
+# Push to GitHub (triggers workflow)
+git push origin main
+
+# Fix image digest error (added quotes)
+git add .github/workflows/ci.yml
+git commit -m "Fix: Add quotes to image digest output"
+git push origin main
+
+# Verify local images
+docker images
+
+# Stop all containers
+docker-compose down
+docker stop $(docker ps -q)
+
+# Remove local images (for testing)
+docker rmi -f $(docker images | grep devops-webapp | awk '{print $3}')
+
+# Pull from Docker Hub
+docker pull YOUR-USERNAME/devops-webapp:latest
+
+# Run from Docker Hub image
+docker run -d -p 8080:80 --name test-from-hub YOUR-USERNAME/devops-webapp:latest
+
+# Verify container running
+docker ps
+
+# Inspect image source
+docker inspect test-from-hub | grep "Image"
+
+# Cleanup test
+docker stop test-from-hub
+docker rm test-from-hub
+
+# Restart normal setup
+docker-compose up -d
+```
+
+### What I Built:
+- Docker Hub access token for secure automation
+- GitHub repository secrets (DOCKERHUB_USERNAME, DOCKERHUB_TOKEN)
+- Extended CI/CD workflow with Docker Hub integration
+- Automated image building and pushing pipeline
+- Multi-tag deployment strategy (latest, main, sha-xxx)
+- Public Docker image repository on Docker Hub
+- Complete end-to-end automation from code to registry
+
+### Challenges I Faced:
+
+1. **Finding GitHub Secrets Section**: Had difficulty locating "Secrets and variables" in repository settings. Needed to scroll down to Security section in left sidebar. Eventually found it at: Settings → Secrets and variables → Actions.
+
+2. **Image Digest Error**: Workflow failed with "No such file or directory" error (exit code 127) at the "Image digest" step. Error message showed `***/devops-webapp:latest: No such file or directory`. Fixed by adding quotes around the output variable: `echo "${{ steps.meta.outputs.tags }}"` instead of `echo ${{ steps.meta.outputs.tags }}`.
+
+3. **Understanding GitHub Masking**: The `***` in logs confused me at first - learned this is GitHub's security feature that automatically hides sensitive data like usernames in workflow logs.
+
+4. **Red Commit in History**: After fixing the image digest error, the original failed commit stayed red. Learned that Git history is immutable - failed commits stay forever, and that's normal! Shows the problem-solving process.
+
+5. **Docker Desktop vs Docker Hub**: Initially confused about whether to use Docker Desktop application or Docker Hub website. Learned Docker Desktop is local, Docker Hub is the online registry website (hub.docker.com).
+
+6. **Verifying Image Source**: Wanted to prove the image was actually from Docker Hub, not local. Learned to delete local images, pull fresh from Docker Hub, and verify the source.
+
+### Key Takeaways:
+1. **Complete automation achieved** - From code push to Docker Hub, fully automated
+2. **Security matters** - Never hardcode credentials, always use secrets
+3. **Tagging strategy is important** - Multiple tags provide deployment flexibility
+4. **Failed commits are learning opportunities** - Git history shows growth, not just success
+5. **Access tokens over passwords** - More secure for automation and can be revoked easily
+6. **Docker Hub makes images publicly available** - Anyone can pull and run your app
+7. **CI/CD pipeline is production-ready** - Same setup used by professional companies
+8. **Metadata automation saves time** - Automatic tag generation from Git information
+
+### Real-World Impact:
+- Images automatically available on Docker Hub after every push
+- Anyone in the world can run my application with one command
+- No manual steps needed for deployment pipeline
+- Version tracking with commit-specific tags
+- Can deploy to any platform that supports Docker
+- Same workflow used by companies like Netflix, Uber, Airbnb
+
+### What Success Looks Like:
+- ✅ Green checkmark on latest commit in GitHub
+- ✅ Workflow completes successfully with all steps passing
+- ✅ Image appears on Docker Hub with multiple tags
+- ✅ Can pull image from Docker Hub and run successfully
+- ✅ Latest tag updates automatically with each push
+- ✅ Complete CI/CD pipeline from code to registry
+
+### Tomorrow's Plan:
+- Deploy application to cloud platform (Render/Railway/Fly.io)
+- Set up continuous deployment
+- Get live URL anyone can access
+- Configure automatic deployments on push
+- Add monitoring and health checks
