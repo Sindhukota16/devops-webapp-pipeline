@@ -2,7 +2,7 @@
 
 
 
-My first DevOps project - learning CI/CD with Docker and GitHub Actions
+DevOps practice project for Beginners - learning CI/CD with Docker and GitHub Actions
 
 
 
@@ -27,4 +27,20 @@ docker pull YOUR-USERNAME/devops-webapp:latest
 docker run -d -p 8080:80 YOUR-USERNAME/devops-webapp:latest
 
 ```
+
+
+
+\## 🌍 Live Deployment
+
+
+
+\[!\[Deployment Status](https://img.shields.io/badge/status-live-success)](YOUR-RENDER-URL)
+
+
+
+🚀 \*\*Live URL:\*\* \[https://your-app.onrender.com](YOUR-RENDER-URL)
+
+
+
+Deployed on Render.com with automatic deployments from GitHub.
 
