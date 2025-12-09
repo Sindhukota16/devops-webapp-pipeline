@@ -250,3 +250,120 @@ docker-compose up -d --build
 - Set up CI/CD pipeline with GitHub Actions
 - Automate testing
 - Automate Docker image building
+
+
+## Day 4 - December 8, 2025
+### Today's Goal: Set up CI/CD pipeline with GitHub Actions
+
+### What I Learned:
+
+#### 1. What is CI/CD?
+- **CI** = Continuous Integration (automated testing & building)
+- **CD** = Continuous Deployment (automated deployment)
+- Automates repetitive tasks every time you push code
+- Catches bugs early before they reach production
+- Ensures consistent code quality
+- Saves time and prevents human error
+
+#### 2. GitHub Actions
+- GitHub's built-in CI/CD automation tool
+- Completely FREE for public repositories
+- Workflows defined in YAML files
+- Runs on GitHub's servers (called runners)
+- Triggered automatically by events (push, pull requests, etc.)
+- Industry-standard tool used by professional teams
+
+#### 3. Workflow Structure
+- **Workflow**: Complete automation process (defined in .yml file)
+- **Job**: Group of steps that run together
+- **Step**: Individual task or command
+- **Trigger**: Event that starts workflow (on: push, pull_request)
+- **Runner**: Virtual machine that executes workflow (ubuntu-latest)
+
+#### 4. My CI Pipeline Steps
+1. **Checkout code** - Downloads repository to runner
+2. **Validate HTML** - Checks index.html has proper structure
+3. **Check Dockerfile** - Verifies Dockerfile exists
+4. **Setup Docker Buildx** - Prepares Docker environment
+5. **Build Docker image** - Creates container image from Dockerfile
+6. **Test Docker container** - Runs container and verifies it works
+
+#### 5. YAML Syntax
+- Human-readable configuration format
+- Uses indentation to show hierarchy (like Python)
+- Must use SPACES not tabs (very important!)
+- Key-value pairs with colons
+- Lists with dashes
+- Comments start with #
+
+### What I Built:
+- Created `.github/workflows/` directory structure
+- Built `ci.yml` workflow file with 6 automated steps
+- Automated HTML validation check
+- Automated Dockerfile existence check
+- Automated Docker image building
+- Automated container testing
+- Added CI status badge to README.md
+- Working CI pipeline that runs on every push!
+
+### Commands I Used:
+```bash
+# Create workflow directory
+mkdir -p .github/workflows
+
+# Create workflow file
+touch .github/workflows/ci.yml
+nano .github/workflows/ci.yml
+
+# Check what changed
+git status
+
+# Add workflow file
+git add .
+
+# Commit changes
+git commit -m "Add CI workflow with GitHub Actions - Day 4"
+
+# Push to GitHub (triggers workflow!)
+git push origin main
+
+# View remote URL
+git remote -v
+```
+
+### Challenges I Faced:
+- GitHub token didn't have `workflow` scope - created new token with correct permissions
+- Git cached old credentials - used browser authentication to fix
+- Terminal froze during sign-in - closed and reopened Git Bash
+- First time with YAML syntax - learned indentation matters (spaces not tabs!)
+- Overall: Token/authentication issues added 30 minutes, but learned valuable troubleshooting skills!
+
+### Key Takeaways:
+1. **CI/CD automates everything** - No more manual testing or building
+2. **GitHub Actions is powerful and free** - Professional tool at no cost
+3. **YAML is human-readable** - Easy to understand but spacing matters
+4. **Green checkmarks show quality** - Professional repos always have CI
+5. **Automation prevents errors** - Computers are more consistent than humans
+6. **Workflows run on every push** - Immediate feedback on code quality
+7. **Token scopes matter** - Different permissions for different operations
+
+### What Success Looks Like:
+- ✅ Green checkmark next to commits on GitHub
+- ✅ CI Pipeline badge showing "passing" in README
+- ✅ Automated checks running within seconds of pushing
+- ✅ Professional-looking repository with active CI/CD
+- ✅ Confidence that code is tested before anyone sees it
+
+### Real-World Impact:
+- This is exactly what professional DevOps engineers set up
+- Companies use CI/CD to deploy code hundreds of times per day
+- Automation reduces deployment time from hours to minutes
+- Catches bugs before they reach production servers
+- Enables teams to move faster with more confidence
+
+### Tomorrow's Plan:
+- Extend CI pipeline with more checks
+- Add automated Docker Hub image pushing
+- Set up secrets for secure credential management
+- Create deployment workflow (CD part!)
+- Deploy to cloud platform automatically
