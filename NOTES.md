@@ -367,3 +367,61 @@ git remote -v
 - Set up secrets for secure credential management
 - Create deployment workflow (CD part!)
 - Deploy to cloud platform automatically
+
+## Day 5 - December 9, 2025
+### Today's Goal: Complete CI/CD pipeline with Docker Hub automation
+
+### What I Learned:
+
+#### 1. Docker Hub as Container Registry
+- Docker Hub is like GitHub but for Docker images
+- Public registry where images can be stored and shared
+- Anyone can pull and run your published images
+- Free for public repositories
+- Created access token instead of using password (more secure)
+
+#### 2. GitHub Secrets for Secure Credentials
+- GitHub Secrets store sensitive information encrypted
+- Located in: Repository → Settings → Security → Secrets and variables → Actions
+- Secrets are never exposed in logs or workflow output
+- Two secrets created:
+  - DOCKERHUB_USERNAME: Docker Hub account username
+  - DOCKERHUB_TOKEN: Access token for authentication
+- Accessed in workflows using: ${{ secrets.SECRET_NAME }}
+
+#### 3. Docker Hub Access Tokens
+- More secure than using passwords in automation
+- Can be revoked without changing account password
+- Specific permissions: Read, Write, Delete
+- Created at: Docker Hub → Account Settings → Security → Access Tokens
+- Never expires (unless set to expire)
+
+#### 4. Automated Image Pushing
+- Extended CI workflow to push images automatically
+- Uses docker/login-action to authenticate
+- Uses docker/build-push-action to build and push in one step
+- Completely automated - no manual docker push needed
+- Runs on every commit to main branch
+
+#### 5. Image Tagging Strategy
+- **latest**: Always points to newest main branch build
+- **main**: Tagged with branch name
+- **sha-xxxxxxx**: Tagged with commit hash (specific version)
+- Semantic versioning support: v1.0.0, v1.1.0, etc. (for future releases)
+- Multiple tags provide flexibility for deployment
+
+#### 6. Docker Metadata Extraction
+- docker/metadata-action automatically generates tags
+- Extracts information from Git (branch, commit hash, tags)
+- Creates consistent, predictable image tags
+- Supports multiple tagging strategies simultaneously
+
+#### 7. Git History Immutability
+- Failed commits stay in history forever (can't be changed)
+- Red X commits are normal and show learning process
+- Fixed with new commit (shows problem-solving)
+- Professional repos have failed commits too
+- What matters: latest commit works, not history perfection
+
+### Commands I Used:
+```bash
