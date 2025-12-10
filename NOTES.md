@@ -677,3 +677,159 @@ git push origin main
 - Configure alerts for downtime
 - Implement logging and observability
 - Monitor application performance
+
+## Day 7 - December 9, 2025
+### Today's Goal: Add monitoring and uptime tracking
+
+### What I Learned:
+
+#### 1. Importance of Monitoring
+- Without monitoring, don't know when app goes down
+- Users report issues before I'm aware
+- Professional apps always have monitoring
+- Monitoring is about knowing issues before users do
+- Can track uptime percentage and reliability metrics
+
+#### 2. UptimeRobot Monitoring Service
+- Free tier includes 50 monitors
+- Checks app every 5 minutes (free tier interval)
+- Sends alerts via email, SMS, or other channels
+- Provides public status pages
+- Tracks uptime percentage and response times
+- Shows historical data and incident reports
+
+#### 3. Health Check Endpoints
+- Simple endpoint that returns status of application
+- Returns "OK" when app is healthy
+- Used by monitoring services and orchestration platforms
+- Standard practice in production applications
+- Located at `/health.html` in my app
+- Just returns plain text "OK" - simple but effective
+
+#### 4. Alert Configuration
+- Configured email notifications for downtime
+- Get alerts when app goes down
+- Get confirmation when app comes back up
+- Can configure SMS, voice calls, or push notifications
+- Alert contacts must be verified before working
+- Email alerts already configured from account setup
+
+#### 5. Status Pages
+- Public page showing current status and uptime
+- Can share with users, employers, stakeholders
+- Shows real-time status and historical uptime
+- Demonstrates reliability and transparency
+- URL: https://stats.uptimerobot.com/azA196Mz3x
+- Automatically updates when monitor status changes
+
+#### 6. Render Health Checks
+- Render can automatically check application health
+- Restarts container if health checks fail
+- Configured health check path: /health.html
+- Provides additional layer of reliability
+- Works alongside UptimeRobot monitoring
+- Part of Render's automatic healing features
+
+#### 7. Free Tier Spin-Down Behavior
+- Render free tier spins down after 15 minutes inactivity
+- Takes 30-60 seconds to wake up on first request
+- UptimeRobot may catch app during wake-up (shows down briefly)
+- This is normal and expected behavior for free tier
+- Uptime percentage still typically above 99%
+- Once awake, stays active for ~15 minutes
+
+### Commands I Used:
+```bash
+# Navigate to project
+cd ~/devops-projects/devops-webapp-pipeline
+
+# Create health check endpoint
+nano health.html
+# (typed: OK)
+
+# Update Dockerfile to include health.html
+nano Dockerfile
+# (added: COPY health.html /usr/share/nginx/html/)
+
+# Commit changes
+git add health.html Dockerfile
+git commit -m "Add health check endpoint"
+git push origin main
+
+# Test health endpoint after deployment
+curl https://devops-webapp-qo82.onrender.com/health.html
+# Returns: OK
+
+# Update documentation
+nano README.md
+# (added monitoring section)
+
+# Update notes
+nano NOTES.md
+# (adding Day 7 notes)
+
+# Push documentation updates
+git add README.md NOTES.md
+git commit -m "Add Day 7 monitoring documentation"
+git push origin main
+```
+
+### What I Built:
+- UptimeRobot monitoring account
+- HTTP(s) monitor checking app every 5 minutes
+- Email alert notifications for downtime events
+- Public status page showing uptime history
+- Health check endpoint at /health.html
+- Render health check configuration
+- Complete monitoring documentation
+
+### Challenges I Faced:
+
+1. **Monitor Initially Showed Down**: After setting up UptimeRobot, monitor showed "Down" with 502 error for 14+ minutes. Learned this was because Render free tier had spun down due to inactivity. Visited URL to wake app up, then monitor turned green on next check cycle (5 minutes).
+
+2. **Finding Alert Contacts Configuration**: Couldn't find "Alert Contacts" in monitor settings or in expected "Settings" menu. Searched through account options and found them in Account Details → Notifications & reports section. Email was already verified from account creation, so alerts were automatically configured.
+
+3. **Understanding 5-Minute Check Interval**: Made changes and expected immediate update in UptimeRobot status. Learned free tier checks every 5 minutes, so must wait for next check cycle to see status changes. Can't force immediate checks on free tier.
+
+4. **Render Health Check "In Progress"**: After configuring health check path in Render settings, status showed "In progress" for 1-2 minutes. This is normal configuration delay while setting applies across Render's infrastructure.
+
+5. **502 Error vs Actual Problem**: Initially confused 502 error with genuine application failure. Learned to distinguish between free tier spin-down (normal) and actual errors by checking if app loads after waiting 30-60 seconds for wake-up.
+
+6. **Status Page URL Location**: After creating status page, wasn't sure where to find the public URL. Found it displayed immediately after creation and also available in status pages list.
+
+### Key Takeaways:
+1. **Monitoring is essential** - Can't manage what can't measure
+2. **Health checks are standard** - Every production app should have them
+3. **Free tier limitations** - Spin-down is expected, not a problem
+4. **Multiple monitoring layers** - UptimeRobot + Render health checks = robust
+5. **Public status pages build trust** - Shows transparency and reliability
+6. **Alerts prevent surprises** - Know about issues before users complain
+7. **99%+ uptime is achievable** - Even on free tier with spin-down behavior
+8. **Simple is effective** - Health check just returns "OK" but that's enough
+
+### Real-World Impact:
+- Can share status page with potential employers
+- Demonstrates understanding of production monitoring
+- Automated alerts mean faster incident response
+- Uptime tracking proves reliability over time
+- Same monitoring approach used by professional companies
+- Health checks enable automatic recovery
+- Status page shows commitment to transparency
+
+### What Success Looks Like:
+- ✅ Monitor showing green "Up" status
+- ✅ Email alerts configured and tested
+- ✅ Health endpoint returns "OK"
+- ✅ Public status page accessible
+- ✅ Render health checks enabled
+- ✅ 99%+ uptime percentage maintained
+- ✅ Documentation updated with monitoring info
+
+### Tomorrow's Plan:
+- Complete comprehensive documentation
+- Add architecture diagrams
+- Final README polish with all badges
+- Add contributing guidelines
+- Create project summary
+- Final testing and verification
+- PROJECT COMPLETION! 🎉
